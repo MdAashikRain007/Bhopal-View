@@ -1,0 +1,119 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<header class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4">Bhimbetka Rock Shelters</h1>
+        <p class="lead">A window into India's prehistoric past through ancient cave art</p>
+    </div>
+</header>
+
+<div class="container my-5">
+    <img src="https://cdn.elebase.io/173fe953-8a63-4a8a-8ca3-1bacb56d78a5/10728bea-b164-4454-a8f7-65971b891e8b-bhimbetka-gallery-01-michaelturtle.jpg?w=1000&h=500&fit=crop&q=75"
+        class="hero-img rounded mb-4" alt="Bhimbetka Rock Shelters">
+
+    <section>
+        <h2>History</h2>
+        <p>The Bhimbetka Rock Shelters are a UNESCO World Heritage Site located in Madhya Pradesh, India. These shelters contain some of the earliest traces of human life in the Indian subcontinent, dating back to the Paleolithic era. The site features prehistoric cave paintings that are over 30,000 years old, depicting scenes of hunting, dancing, and daily life.</p>
+    </section>
+
+    <section class="mt-4">
+        <h2>Geography and Significance</h2>
+        <p>Situated in the foothills of the Vindhya range, Bhimbetka consists of more than 700 rock shelters spread across sandstone hills. Around 400 of these caves feature ancient paintings. The area showcases the continuity of human settlement from early man to the historical period, making it a key archaeological and anthropological site in South Asia.</p>
+    </section>
+
+    <section class="mt-4">
+        <h2>Activities and Attractions</h2>
+        <ul>
+            <li><strong>Rock Paintings:</strong> View depictions of animals, human figures, and hunting scenes made with natural pigments.</li>
+            <li><strong>Heritage Trails:</strong> Follow guided walking trails to explore the shelters and learn about prehistoric life.</li>
+            <li><strong>Photography:</strong> The site offers excellent opportunities for historical and landscape photography.</li>
+            <li><strong>Nearby Forests:</strong> Enjoy a peaceful natural environment with rich biodiversity surrounding the shelters.</li>
+        </ul>
+    </section>
+
+    <section class="mt-4">
+        <h2>Environmental Importance</h2>
+        <p>Bhimbetka is not only an archaeological treasure but also a protected ecological zone. It lies within the Ratapani Wildlife Sanctuary and is surrounded by lush forests that host wildlife such as leopards, deer, and a variety of birds, contributing to its ecological value.</p>
+    </section>
+
+    <section class="mt-4">
+        <h2>Gallery</h2>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <img width="300" height="300" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/24/89/77/a8/caption.jpg?w=1200&h=-1&s=1"
+                    class="img-fluid rounded" alt="Bhimbetka Cave Paintings">
+            </div>
+            <div class="col-md-4 mb-3">
+                <img width="300" height="300" src="https://thumbs.dreamstime.com/b/bhimbetka-largest-rock-paintings-complex-india-bhimbetaka-has-more-than-shelters-have-been-identified-caves-large-194826929.jpg"
+                    class="img-fluid rounded" alt="Entrance of Bhimbetka Shelter">
+            </div>
+            <div class="col-md-4 mb-3">
+                <img width="300" height="300" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/24/89/77/a8/caption.jpg?w=1200&h=1200&s=1"
+                    class="img-fluid rounded" alt="Interior of a Bhimbetka Shelter">
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Reviews List -->
+ <section class="mt-5">
+    <div class="container">
+        <h2 class="mb-4">User Reviews</h2>
+
+        <!-- Review Form -->
+        <form action="/bhopal/<%= place %>/review" method="POST" id="reviewForm" class="mb-5">
+            <div class="row">
+                <div class="mb-3 col-12 col-sm-6 col-md-4">
+                    <label for="reviewRating" class="form-label">Rating</label>
+                    <select name="rating" class="form-select" id="reviewRating" required>
+                        <option value="" disabled selected>Select rating</option>
+                        <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+                        <option value="4">⭐⭐⭐⭐ - Very Good</option>
+                        <option value="3">⭐⭐⭐ - Good</option>
+                        <option value="2">⭐⭐ - Fair</option>
+                        <option value="1">⭐ - Poor</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 col-12">
+                    <label for="reviewText" class="form-label">Your Review</label>
+                    <textarea name="comment" class="form-control" id="reviewText" rows="4" required></textarea>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Reviews List -->
+        <div id="reviewsList">
+            <% if (reviews.length === 0) { %>
+                <p class="text-muted">No reviews yet. Be the first to write one!</p>
+            <% } %>
+            <div class="row ">
+                <% reviews.forEach(review => { %>
+                    <div class="singleReview card col-12 col-sm-6 col-lg-3 mb-4 mx-md-1 ">
+                        <div class="card-body">
+                            <h4 class="card-title"><%= review.author.username %></h4>
+                            <p class="card-text"><%= review.comment %></p>
+                            <p class="card-text">
+                                <%= '⭐'.repeat(review.rating) %> 
+                            </p>
+
+                            <!-- Edit and Delete Buttons -->
+                            <div class="d-flex justify-content-start">
+                                <a href="/bhopal/<%= place %>/review/<%= review._id %>/edit" class="btn btn-outline-primary mx-2">Edit</a>
+                                <form method="POST" action="/bhopal/<%= place %>/review/<%= review._id %>?_method=DELETE" >
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,119 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<header class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4">Ancient Caves of Madhya Pradesh</h1>
+        <p class="lead">Echoes of prehistoric life and spiritual heritage</p>
+    </div>
+</header>
+
+<div class="container my-5">
+    <img src="https://cdn.britannica.com/36/155836-050-89E7AA9E/Great-Stupa-Sanchi-India.jpg"
+        class="hero-img rounded mb-4" alt="Ancient Cave Paintings of Madhya Pradesh">
+
+    <section>
+        <h2>History</h2>
+        <p>The ancient caves of Madhya Pradesh, such as those at Bhimbetka and Udayagiri, showcase remarkable rock shelters and carvings that date back to the prehistoric era. Bhimbetka Caves, a UNESCO World Heritage Site, contains paintings over 30,000 years old, offering one of the earliest records of human life in India. Udayagiri Caves, dating to the Gupta period, are known for their intricate carvings and early Hindu iconography.</p>
+    </section>
+
+    <section class="mt-4">
+        <h2>Geography and Significance</h2>
+        <p>These caves are spread across regions like Raisen and Vidisha. Surrounded by rocky terrain and forests, they preserve layers of human development — from the Stone Age to early classical civilization. They hold immense archaeological, anthropological, and spiritual significance for historians and researchers.</p>
+    </section>
+
+    <section class="mt-4">
+        <h2>Activities and Attractions</h2>
+        <ul>
+            <li><strong>Rock Art Viewing:</strong> Bhimbetka showcases vivid images of hunting, dancing, and rituals from prehistoric times.</li>
+            <li><strong>Exploration:</strong> Trek around natural rock shelters and scenic landscapes that surround the caves.</li>
+            <li><strong>Udayagiri Carvings:</strong> Visit Lord Vishnu’s famous Varaha avatar sculpture carved into the rock.</li>
+            <li><strong>Photography & Study:</strong> A great spot for archaeology enthusiasts, artists, and nature lovers.</li>
+        </ul>
+    </section>
+
+    <section class="mt-4">
+        <h2>Environmental Importance</h2>
+        <p>The caves are part of forested and rocky ecosystems. Their preservation helps protect regional biodiversity and keeps alive ancient knowledge systems. They also serve as an educational resource for sustainable coexistence with nature.</p>
+    </section>
+
+    <section class="mt-4">
+        <h2>Gallery</h2>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <img width="300" height="300" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/East_Gateway_-_Stupa_1_-_Sanchi_Hill_2013-02-21_4398.JPG/250px-East_Gateway_-_Stupa_1_-_Sanchi_Hill_2013-02-21_4398.JPG"
+                    class="img-fluid rounded" alt="Bhimbetka painting">
+            </div>
+            <div class="col-md-4 mb-3">
+                <img width="300" height="300" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJC61FtV-E7-D0vkMfTFAIH-bHBOo0_RqGET6LIaRoJhlrohnGshK8ydbuylqbvGWYf1Q&usqp=CAU"
+                    class="img-fluid rounded" alt="Udayagiri Cave carving">
+            </div>
+            <div class="col-md-4 mb-3">
+                <img width="300" height="300" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe45rEXgIszPT6Z9WM4SBxN_319GXgwicvB5WHk-DEd7kYcfiAwxJMhF71k-oYait2uM4&usqp=CAU"
+                    class="img-fluid rounded" alt="Rock shelters at Bhimbetka">
+            </div>
+        </div>
+    </section>
+</div>
+
+ <section class="mt-5">
+    <div class="container">
+        <h2 class="mb-4">User Reviews</h2>
+
+        <!-- Review Form -->
+        <form action="/bhopal/<%= place %>/review" method="POST" id="reviewForm" class="mb-5">
+            <div class="row">
+                <div class="mb-3 col-12 col-sm-6 col-md-4">
+                    <label for="reviewRating" class="form-label">Rating</label>
+                    <select name="rating" class="form-select" id="reviewRating" required>
+                        <option value="" disabled selected>Select rating</option>
+                        <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+                        <option value="4">⭐⭐⭐⭐ - Very Good</option>
+                        <option value="3">⭐⭐⭐ - Good</option>
+                        <option value="2">⭐⭐ - Fair</option>
+                        <option value="1">⭐ - Poor</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 col-12">
+                    <label for="reviewText" class="form-label">Your Review</label>
+                    <textarea name="comment" class="form-control" id="reviewText" rows="4" required></textarea>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Reviews List -->
+        <div id="reviewsList">
+            <% if (reviews.length === 0) { %>
+                <p class="text-muted">No reviews yet. Be the first to write one!</p>
+            <% } %>
+            <div class="row ">
+                <% reviews.forEach(review => { %>
+                    <div class="singleReview card col-12 col-sm-6 col-lg-3 mb-4 mx-md-1 ">
+                        <div class="card-body">
+                            <h4 class="card-title"><%= review.author.username %></h4>
+                            <p class="card-text"><%= review.comment %></p>
+                            <p class="card-text">
+                                <%= '⭐'.repeat(review.rating) %> 
+                            </p>
+
+                            <!-- Edit and Delete Buttons -->
+                            <div class="d-flex justify-content-start">
+                                <a href="/bhopal/<%= place %>/review/<%= review._id %>/edit" class="btn btn-outline-primary mx-2">Edit</a>
+                                <form method="POST" action="/bhopal/<%= place %>/review/<%= review._id %>?_method=DELETE" >
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

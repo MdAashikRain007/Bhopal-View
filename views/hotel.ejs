@@ -1,0 +1,71 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<% if (!currUser) { %>
+  <div class="alert alert-warning text-center mt-4">
+    You must be <a href="/bhopal/loginform">logged in</a> to book a hotel.
+  </div>
+<% } else { %>
+  <div class="container mt-4">
+    <form id="bookingForm" method="POST" action="/hotel/book">
+      <div class="row mb-3">
+        <div class="col-md-6 mb-3">
+          <label for="checkinDate" class="form-label">Check-in Date</label>
+          <input type="date" class="form-control" name="checkinDate" id="checkinDate" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="checkoutDate" class="form-label">Check-out Date</label>
+          <input type="date" class="form-control" name="checkoutDate" id="checkoutDate" required>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label for="guests" class="form-label">Guests</label>
+          <select class="form-select" name="guests" id="guests" required>
+            <option value="" disabled selected>Select</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4+</option>
+          </select>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="roomType" class="form-label">Room Type</label>
+          <select class="form-select" name="roomType" id="roomType" required>
+            <option value="" disabled selected>Select</option>
+            <option>Single</option>
+            <option>Double</option>
+            <option>Deluxe</option>
+            <option>Suite</option>
+          </select>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="hotelName" class="form-label">Hotel Name</label>
+          <input type="text" class="form-control" name="hotelName" id="hotelName" required>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <h4 class="mb-3">Personal Details</h4>
+      <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label for="fullName" class="form-label">Full Name</label>
+          <input type="text" class="form-control" name="fullName" id="fullName" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" class="form-control" name="email" id="email" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="phone" class="form-label">Phone Number</label>
+          <input type="tel" class="form-control" name="phone" id="phone" required>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-success btn-lg w-50">Book Now</button>
+      </div>
+    </form>
+  </div>
+<% } %>

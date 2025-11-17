@@ -1,0 +1,118 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<header class="bg-primary text-white text-center py-5">
+  <div class="container">
+    <h1 class="display-4">Taj-ul-Masajid</h1>
+    <p class="lead">The crown of mosques and one of the largest in India</p>
+  </div>
+</header>
+
+<div class="container my-5">
+  <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/ab/92/65/on-this-occasion-of-bakridwe.jpg?w=900&h=500&s=1"
+    class="hero-img rounded mb-4" alt="Taj-ul-Masajid">
+
+  <section>
+    <h2>History</h2>
+    <p>The Taj-ul-Masajid (meaning "Crown of Mosques") was commissioned by Shah Jahan Begum of Bhopal in the 19th century. Construction halted and resumed several times, finally being completed in the late 20th century. It reflects the rich Islamic architectural heritage of the city and is a testament to Bhopal’s royal legacy.</p>
+  </section>
+
+  <section class="mt-4">
+    <h2>Architecture and Features</h2>
+    <p>This mosque features two towering minarets, massive domes, a vast courtyard, and a large prayer hall that can accommodate thousands. Built in a Mughal architectural style, it is adorned with intricate motifs and arched gateways, reminiscent of Jama Masjid in Delhi.</p>
+  </section>
+
+  <section class="mt-4">
+    <h2>Activities and Attractions</h2>
+    <ul>
+      <li><strong>Photography:</strong> Ideal for architectural and cultural photography lovers.</li>
+      <li><strong>Religious Gatherings:</strong> Hosts large events including the annual Tablighi Jamaat congregation.</li>
+      <li><strong>Historical Exploration:</strong> Learn about the women rulers of Bhopal who contributed to its construction.</li>
+      <li><strong>Nearby Markets:</strong> Visit old Bhopal's bustling bazaars and eateries nearby.</li>
+    </ul>
+  </section>
+
+  <section class="mt-4">
+    <h2>Spiritual & Cultural Importance</h2>
+    <p>Taj-ul-Masajid is not only a place of worship but also a symbol of Islamic art and the cultural pride of Bhopal. It stands as one of the few monumental structures in India funded and promoted by female monarchs, making it historically unique.</p>
+  </section>
+
+  <section class="mt-4">
+    <h2>Gallery</h2>
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <img src="https://media.istockphoto.com/id/1403055965/photo/taj-ul-masajid-bhopal-madhya-pradesh-india.jpg?s=612x612&w=0&k=20&c=T4tqNjIAsHmzV4ig05XLxAX6LXfOUPo3Cz6wKa4Z7uc="
+          class="img-fluid rounded" alt="Taj-ul-Masajid front view">
+      </div>
+      <div class="col-md-4 mb-3">
+        <img src="https://media.istockphoto.com/id/1202189151/photo/taj-ul-masajid.jpg?s=612x612&w=0&k=20&c=J0wlVWr3mWHrWUqcbIaoFr_GzO_ffYPaqpU8Qajr9wU="
+          class="img-fluid rounded" alt="Interior of mosque">
+      </div>
+      <div class="col-md-4 mb-3">
+        <img src="https://media.istockphoto.com/id/1182323376/photo/taj-ul-masajid-the-largest-mosque-in-india-bhopal-india.jpg?s=612x612&w=0&k=20&c=2LfN-4EfC6g8SN1hhssuODupCtpIqhJATWlIJNwZOt8="
+          class="img-fluid rounded" alt="Evening view of Taj-ul-Masajid">
+      </div>
+    </div>
+  </section>
+</div>
+
+ <section class="mt-5">
+    <div class="container">
+        <h2 class="mb-4">User Reviews</h2>
+
+        <!-- Review Form -->
+        <form action="/bhopal/<%= place %>/review" method="POST" id="reviewForm" class="mb-5">
+            <div class="row">
+                <div class="mb-3 col-12 col-sm-6 col-md-4">
+                    <label for="reviewRating" class="form-label">Rating</label>
+                    <select name="rating" class="form-select" id="reviewRating" required>
+                        <option value="" disabled selected>Select rating</option>
+                        <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+                        <option value="4">⭐⭐⭐⭐ - Very Good</option>
+                        <option value="3">⭐⭐⭐ - Good</option>
+                        <option value="2">⭐⭐ - Fair</option>
+                        <option value="1">⭐ - Poor</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 col-12">
+                    <label for="reviewText" class="form-label">Your Review</label>
+                    <textarea name="comment" class="form-control" id="reviewText" rows="4" required></textarea>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Reviews List -->
+        <div id="reviewsList">
+            <% if (reviews.length === 0) { %>
+                <p class="text-muted">No reviews yet. Be the first to write one!</p>
+            <% } %>
+            <div class="row ">
+                <% reviews.forEach(review => { %>
+                    <div class="singleReview card col-12 col-sm-6 col-lg-3 mb-4 mx-md-1 ">
+                        <div class="card-body">
+                            <h4 class="card-title"><%= review.author.username %></h4>
+                            <p class="card-text"><%= review.comment %></p>
+                            <p class="card-text">
+                                <%= '⭐'.repeat(review.rating) %> 
+                            </p>
+
+                            <!-- Edit and Delete Buttons -->
+                            <div class="d-flex justify-content-start">
+                                <a href="/bhopal/<%= place %>/review/<%= review._id %>/edit" class="btn btn-outline-primary mx-2">Edit</a>
+                                <form method="POST" action="/bhopal/<%= place %>/review/<%= review._id %>?_method=DELETE" >
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</section>
+
+

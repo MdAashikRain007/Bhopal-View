@@ -1,0 +1,117 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<header class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4">Van Vihar National Park</h1>
+        <p class="lead">A serene wildlife sanctuary in the heart of Bhopal</p>
+    </div>
+</header>
+
+<div class="container my-5">
+    <img src="https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2023/12/29/58894f7c661b41dcc979e47db0e08d0b_1000x1000.jpg"
+        class="hero-img rounded mb-4" alt="Van Vihar National Park">
+
+    <section>
+        <h2>History</h2>
+        <p>Van Vihar National Park, located in Bhopal, was declared a national park in 1983. Developed and managed as a modern zoological park, it combines the features of a national park and a sanctuary. It is unique in the sense that animals are kept in near-natural habitats, and many are rescued or brought from zoos rather than being captured from the wild.</p>
+    </section>
+
+    <section class="mt-4">
+        <h2>Geography and Significance</h2>
+        <p>Spread across 4.45 square kilometers, Van Vihar lies adjacent to the Upper Lake. The park's terrain includes grasslands, wetlands, and forested areas. It serves as a green buffer zone within the urban sprawl of Bhopal and is a vital refuge for wildlife and migratory birds, contributing significantly to the region’s biodiversity and eco-tourism.</p>
+    </section>
+
+    <section class="mt-4">
+        <h2>Activities and Attractions</h2>
+        <ul>
+            <li><strong>Wildlife Viewing:</strong> Spot tigers, leopards, sloth bears, hyenas, and several species of deer in open enclosures.</li>
+            <li><strong>Bird Watching:</strong> A paradise for bird lovers, especially during winter when migratory birds arrive.</li>
+            <li><strong>Nature Trails:</strong> Walk or cycle through the peaceful forest paths alongside the lake.</li>
+            <li><strong>Eco Learning:</strong> Educational tours for students and nature enthusiasts are regularly conducted.</li>
+        </ul>
+    </section>
+
+    <section class="mt-4">
+        <h2>Environmental Importance</h2>
+        <p>Van Vihar plays a critical ecological role in urban conservation. It supports endangered and vulnerable species, serves as a carbon sink, and enhances groundwater recharge. Its presence helps raise awareness about wildlife conservation among city dwellers and promotes sustainable tourism.</p>
+    </section>
+
+    <section class="mt-4">
+        <h2>Gallery</h2>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <img width="300" height="300" src="https://www.tigersafariindia.com/blog/wp-content/uploads/2017/10/CM.jpg"
+                    class="img-fluid rounded" alt="Tiger in Van Vihar">
+            </div>
+            <div class="col-md-4 mb-3">
+                <img width="300" height="300" src="https://media-cdn.tripadvisor.com/media/photo-s/16/b3/77/81/tiger-moving-around.jpg"
+                    class="img-fluid rounded" alt="Lake view from Van Vihar">
+            </div>
+            <div class="col-md-4 mb-3">
+                <img width="300" height="300" src="https://vanviharnationalpark.org/public/storage/gallery/fc226c3f40a5b2935e8bd92c76c6fdbefc1a03c4.jpg"
+                    class="img-fluid rounded" alt="Deer at Van Vihar">
+            </div>
+        </div>
+    </section>
+</div>
+
+ <section class="mt-5">
+    <div class="container">
+        <h2 class="mb-4">User Reviews</h2>
+
+        <!-- Review Form -->
+        <form action="/bhopal/<%= place %>/review" method="POST" id="reviewForm" class="mb-5">
+            <div class="row">
+                <div class="mb-3 col-12 col-sm-6 col-md-4">
+                    <label for="reviewRating" class="form-label">Rating</label>
+                    <select name="rating" class="form-select" id="reviewRating" required>
+                        <option value="" disabled selected>Select rating</option>
+                        <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+                        <option value="4">⭐⭐⭐⭐ - Very Good</option>
+                        <option value="3">⭐⭐⭐ - Good</option>
+                        <option value="2">⭐⭐ - Fair</option>
+                        <option value="1">⭐ - Poor</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 col-12">
+                    <label for="reviewText" class="form-label">Your Review</label>
+                    <textarea name="comment" class="form-control" id="reviewText" rows="4" required></textarea>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Reviews List -->
+        <div id="reviewsList">
+            <% if (reviews.length === 0) { %>
+                <p class="text-muted">No reviews yet. Be the first to write one!</p>
+            <% } %>
+            <div class="row ">
+                <% reviews.forEach(review => { %>
+                    <div class="singleReview card col-12 col-sm-6 col-lg-3 mb-4 mx-md-1 ">
+                        <div class="card-body">
+                            <h4 class="card-title"><%= review.author.username %></h4>
+                            <p class="card-text"><%= review.comment %></p>
+                            <p class="card-text">
+                                <%= '⭐'.repeat(review.rating) %> 
+                            </p>
+
+                            <!-- Edit and Delete Buttons -->
+                            <div class="d-flex justify-content-start">
+                                <a href="/bhopal/<%= place %>/review/<%= review._id %>/edit" class="btn btn-outline-primary mx-2">Edit</a>
+                                <form method="POST" action="/bhopal/<%= place %>/review/<%= review._id %>?_method=DELETE" >
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</section>
+
