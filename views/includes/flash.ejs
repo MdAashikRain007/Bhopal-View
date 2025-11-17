@@ -1,16 +1,45 @@
 
+
 <% if(success && success.length){ %>
-    <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
-        <%= success%>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+    <div class="alert alert-success alert-dismissible fade show container mt-3 shadow-lg" role="alert">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-check-circle me-2 fs-5"></i>
+            <div class="flex-grow-1">
+                <strong>Success!</strong> <%= success%>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
 
 <%}%>
 
 <% if(error && error.length){ %>
-    <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
-        <%= error%>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+    <div class="alert alert-danger alert-dismissible fade show container mt-3 shadow-lg" role="alert">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-exclamation-circle me-2 fs-5"></i>
+            <div class="flex-grow-1">
+                <strong>Error!</strong> <%= error%>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
 
 <%}%>
+
+<style>
+    .alert {
+        border: none;
+        border-radius: 12px;
+        animation: slideInDown 0.5s ease;
+    }
+    
+    .alert-success {
+        background-color: #d1e7dd;
+        border-left: 5px solid #198754;
+    }
+    
+    .alert-danger {
+        background-color: #f8d7da;
+        border-left: 5px solid #dc3545;
+    }
+</style>

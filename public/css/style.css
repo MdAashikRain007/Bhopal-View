@@ -1,47 +1,566 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-body{
-  font-family: "Outfit", sans-serif;
-   margin: 0;
-   padding: 0;
-   width: 100%;
-   height: 100%;
-   overflow-x: hidden; 
+
+* {
   box-sizing: border-box;
-
-}
-#logo{
-    height: 4rem;
-    width: 4rem;
 }
 
+body {
+  font-family: "Outfit", sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background-color: #f8f9fa;
+  color: #333;
+}
 
-/* index route */
+#logo {
+  height: 4rem;
+  width: 4rem;
+  transition: transform 0.3s ease;
+}
 
+#logo:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* ==================== ANIMATIONS ==================== */
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ==================== NAVBAR ==================== */
+
+.navbar {
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  animation: slideInLeft 0.6s ease;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.navbar-nav .nav-link {
+  transition: all 0.3s ease;
+  margin: 0 5px;
+  position: relative;
+  font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #ffc107 !important;
+  transform: translateY(-3px);
+}
+
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #ffc107;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+  width: 100%;
+}
+
+/* ==================== HERO SECTION ==================== */
 
 .hero-section {
-    background: url('/Hero.jpg') center/cover no-repeat;
-    height: 92vh;
-    background-size: cover;
-    /* background-position: center; */
-    position: relative;
-    color: white;
+  background: url('/Hero.jpg') center/cover no-repeat;
+  min-height: 92vh;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
 
-  }
-  .hero-section .overlay {
-    background-color: rgba(0,0,0,0.5);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-  .hero-section .content {
-    position: relative;
-    z-index: 1;
+.hero-section .overlay {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: background 0.3s ease;
+}
+
+.hero-section .overlay:hover {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.hero-section .content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  animation: fadeInUp 1s ease;
+}
+
+.hero-section h1 {
+  animation: fadeInDown 0.8s ease 0.2s both;
+  font-weight: 800;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.hero-section .lead {
+  animation: fadeInUp 0.8s ease 0.4s both;
+  font-size: 1.3rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+}
+
+.hero-section .btn {
+  animation: scaleIn 0.8s ease 0.6s both;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  padding: 12px 35px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-section .btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* ==================== CARDS & COMPONENTS ==================== */
+
+.card {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  background: white;
+  animation: fadeInUp 0.6s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+  height: auto;
+  width: 100%;
+  object-fit: cover;
+  min-height: 200px;
+  max-height: 300px;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.08);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-weight: 700;
+  color: #0d6efd;
+  margin-bottom: 12px;
+  transition: color 0.3s ease;
+}
+
+.card:hover .card-title {
+  color: #0a58ca;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #6c757d;
+  line-height: 1.6;
+}
+
+/* ==================== BUTTONS ==================== */
+
+.btn {
+  transition: all 0.3s ease;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4);
+  background: linear-gradient(135deg, #0a58ca 0%, #0d6efd 100%);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+  background: linear-gradient(135deg, #c82333 0%, #dc3545 100%);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(25, 135, 84, 0.3);
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(25, 135, 84, 0.4);
+  background: linear-gradient(135deg, #146c43 0%, #198754 100%);
+}
+
+.btn-outline-primary {
+  border: 2px solid #0d6efd;
+  color: #0d6efd;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  background: #0d6efd;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ==================== SECTIONS ==================== */
+
+section {
+  transition: all 0.3s ease;
+  padding: 60px 0;
+}
+
+section:nth-child(odd) {
+  background-color: white;
+}
+
+section:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.section-title {
+  text-align: center;
+  font-weight: 800;
+  color: #0d6efd;
+  margin-bottom: 50px;
+  position: relative;
+  animation: fadeInDown 0.6s ease;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #0d6efd, #ffc107);
+  margin: 15px auto 0;
+  border-radius: 2px;
+  animation: slideInLeft 0.8s ease 0.3s both;
+}
+
+/* ==================== HERO IMAGE ==================== */
+
+.hero-img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  animation: slideInLeft 0.8s ease;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ==================== FORM CONTROLS ==================== */
+
+.form-control,
+.form-select {
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  padding: 12px 15px;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  transform: translateY(-2px);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+/* ==================== FOOTER ==================== */
+
+footer {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-top: 2px solid #dee2e6;
+  transition: all 0.3s ease;
+  margin-top: 60px;
+  padding: 40px 0 20px;
+}
+
+footer h5 {
+  color: #0d6efd;
+  font-weight: 700;
+  animation: fadeInUp 0.6s ease;
+}
+
+footer a {
+  transition: all 0.3s ease;
+  color: #666;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #0d6efd;
+  transform: translateX(5px);
+}
+
+footer .fa-icon {
+  font-size: 1.3rem;
+}
+
+/* ==================== ALERTS & FLASH MESSAGES ==================== */
+
+.alert {
+  border-radius: 10px;
+  border: none;
+  animation: slideInDown 0.5s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.alert-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  color: #664d03;
+}
+
+.alert-info {
+  background-color: #cfe2ff;
+  color: #084298;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 70vh;
+    background-attachment: scroll;
   }
 
-  /* Pages */
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+  .hero-section .lead {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+  }
+
+  .card {
+    margin-bottom: 20px;
+  }
+
+  .card-img-top {
+    height: auto;
+    min-height: 180px;
+    max-height: 250px;
+  }
+
+  section {
+    padding: 40px 0;
+  }
+
+  footer .row {
+    margin-bottom: 30px;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .btn-lg {
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-section h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-section .lead {
+    font-size: 0.9rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
   .hero-img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
+    height: auto;
+    min-height: 200px;
+    max-height: 300px;
   }
+
+  .card-img-top {
+    height: auto;
+    min-height: 150px;
+    max-height: 220px;
+  }
+
+  section {
+    padding: 30px 0;
+  }
+
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .display-4 {
+    font-size: 1.8rem;
+  }
+}
+
+/* ==================== ACCESSIBILITY & GENERAL ==================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0d6efd;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0a58ca;
+}
 
