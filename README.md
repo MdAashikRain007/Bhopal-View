@@ -1,5 +1,9 @@
 # Bhopal View
 
+🔗 **Live Project**:  
+👉 https://bhopal-view-5srdpnae4-mdaashikrain007s-projects.vercel.app/
+
+
 > Built a fully responsive tourism web application that showcases key travel
 spots in Bhopal. Built using the MVC architecture for clear separation of
 concerns and maintainability. The app uses EJS for server-side rendering
